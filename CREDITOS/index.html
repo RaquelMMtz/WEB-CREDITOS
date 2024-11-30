@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <title>Inicio de Sesión - Aplicación de Crédito</title>
+</head>
+<body>
+    <div class="login-panel">
+        <h1 class="title">CREDITOS</h1>
+        <img src="assets/images/Logo.png" alt="Logo Créditos" class="credit-image">
+
+        <div class="input-group">
+            <img src="assets/images/usuario.png" alt="Usuario Icono" class="icon">
+            <input type="text" id="username" placeholder="Usuario" class="input-text">
+        </div>
+
+        <div class="input-group">
+            <img src="assets/images/Contraseña.png" alt="Contraseña Icono" class="icon">
+            <input type="password" id="password" placeholder="Contraseña" class="input-text">
+        </div>
+
+        <button id="loginButton" class="btn">Iniciar Sesión</button>
+        <a href="#" id="registerLink" class="register-link">¿No tienes una cuenta? Regístrate aquí</a>
+    </div>
+
+    <script>
+        document.getElementById('loginButton').addEventListener('click', function() {
+            // Simulación de inicio de sesión exitoso
+            window.location.href = 'main_menu.html'; // Redirigir al menú principal
+        });
+
+        document.getElementById('registerLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = 'register.html'; // Redirigir a la página de registro de usuario
+        });
+    </script>
+</body>
+</html>

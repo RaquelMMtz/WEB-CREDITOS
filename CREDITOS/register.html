@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <title>Registro de Usuario - Aplicación de Crédito</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(90deg, rgba(0, 51, 102, 1) 0%, rgba(102, 178, 255, 1) 100%);
+        }
+
+        .register-panel {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 450px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .input-group { margin-bottom: 25px; text-align: left; display: flex; align-items: center; }
+
+        .input-label { margin-bottom: 15px; font-weight: bold; display: inline-block; width: 120px; }
+
+        .input-text { width: 60%; margin-left: 10px; padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; background-color: #f0f0f0; }
+
+        .btn {
+            width: 80%;
+            padding: 15px;
+            margin: 10px auto;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        #uploadINE, #uploadAddressProof {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        #uploadINE:hover, #uploadAddressProof:hover {
+            background-color: #005bb5;
+        }
+
+        #submitButton {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        #submitButton:hover {
+            background-color: #005bb5;
+        }
+
+        #showPassword {
+            margin-left: 130px;
+            margin-top: -15px;
+        }
+
+        #uploadStatus {
+            margin-top: 10px;
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-panel">
+        <h1 class="title">Registro de Usuario</h1>
+        <img src="assets/images/UsuNv.png" alt="Usuario" class="user-image" style="margin-top: 80px;">
+
+        <div class="input-group">
+            <label for="name" class="input-label">Nombre:</label>
+            <input type="text" id="name" class="input-text" placeholder="Nombre">
+        </div>
+
+        <div class="input-group">
+            <label for="lastName" class="input-label">Apellido:</label>
+            <input type="text" id="lastName" class="input-text" placeholder="Apellido">
+        </div>
+
+        <div class="input-group">
+            <label for="email" class="input-label">Correo:</label>
+            <input type="email" id="email" class="input-text" placeholder="Correo electrónico">
+        </div>
+
+        <div class="input-group">
+            <label for="phone" class="input-label">Teléfono:</label>
+            <input type="tel" id="phone" class="input-text" placeholder="Número de teléfono">
+        </div>
+
+        <div class="input-group">
+            <label for="username" class="input-label">Usuario:</label>
+            <input type="text" id="username" class="input-text" placeholder="Nombre de usuario">
+        </div>
+
+        <div class="input-group">
+            <label for="password" class="input-label">Contraseña:</label>
+            <input type="password" id="password" class="input-text" placeholder="Contraseña">
+        </div>
+
+        <div class="input-group" style="align-items: center;">
+    <input type="checkbox" id="showPassword" style="margin-right: 10px; vertical-align: middle;">
+    <label for="showPassword" style="vertical-align: middle;">Mostrar contraseña</label>
+</div>
+
+        <button id="uploadINE" class="btn">Subir Foto INE</button>
+        <input type="file" id="uploadINEInput" accept=".jpg, .jpeg, .png" style="display:none;">
+
+        <button id="uploadAddressProof" class="btn">Subir Comprobante de Domicilio (PDF)</button>
+        <input type="file" id="uploadAddressProofInput" accept=".pdf" style="display:none;">
+
+        <div id="uploadStatus">Ningún archivo seleccionado</div>
+
+        <button id="submitButton" class="btn">Registrar</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Capitalizar el nombre mientras se escribe
+            document.getElementById('name').addEventListener('input', function() {
+                this.value = capitalizeWords(this.value.toLowerCase());
+            });
+            // Botón para subir INE
+            const uploadINEButton = document.getElementById('uploadINE');
+            const uploadINEInput = document.getElementById('uploadINEInput');
+            const uploadStatus = document.getElementById('uploadStatus');
+
+            uploadINEButton.addEventListener('click', () => {
+                uploadINEInput.click();
+            });
+
+            uploadINEInput.addEventListener('change', () => {
+                if (uploadINEInput.files.length > 0) {
+                    alert("Imagen del INE cargada correctamente.");
+                    uploadStatus.textContent = "Imagen del INE: " + uploadINEInput.files[0].name;
+                    uploadStatus.style.color = "green";
+                }
+            });
+
+            // Botón para subir Comprobante de Domicilio
+            const uploadAddressProofButton = document.getElementById('uploadAddressProof');
+            const uploadAddressProofInput = document.getElementById('uploadAddressProofInput');
+
+            uploadAddressProofButton.addEventListener('click', () => {
+                uploadAddressProofInput.click();
+            });
+
+            uploadAddressProofInput.addEventListener('change', () => {
+                if (uploadAddressProofInput.files.length > 0) {
+                    alert("Comprobante de domicilio cargado correctamente.");
+                    uploadStatus.textContent = "Comprobante de domicilio: " + uploadAddressProofInput.files[0].name;
+                    uploadStatus.style.color = "green";
+                }
+            });
+
+            // Capitalizar el nombre y apellido
+            function capitalizeWords(input) {
+                return input.replace(/\b\w/g, (char) => char.toUpperCase());
+            }
+
+            document.getElementById('name').addEventListener('blur', function() {
+                this.value = capitalizeWords(this.value.toLowerCase());
+            });
+
+            document.getElementById('lastName').addEventListener('blur', function() {
+                this.value = capitalizeWords(this.value.toLowerCase());
+            });
+
+            // Mostrar u ocultar contraseña
+            document.getElementById('showPassword').addEventListener('change', function() {
+                const passwordInput = document.getElementById('password');
+                passwordInput.type = this.checked ? 'text' : 'password';
+            });
+
+            // Función para validar palabras inapropiadas
+            function containsInappropriateWords(input) {
+                const inappropriateWords = ["puta", "perra", "pendeja", "idiota", "estupida", "wey", "zorra", "pendejo", "estupido"];
+                return inappropriateWords.some(word => input.toLowerCase().includes(word));
+            }
+
+            // Función para validar el correo electrónico
+            function isValidEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+
+            // Función para validar el número de teléfono
+            function isValidPhoneNumber(phone) {
+                const phonePattern = /^[0-9]+$/;
+                return phonePattern.test(phone);
+            }
+
+            // Botón de registrar
+            document.getElementById('submitButton').addEventListener('click', function() {
+                const name = document.getElementById('name').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (!name || !lastName || !email || !phone || !username || !password) {
+                    alert("Por favor, complete todos los campos antes de continuar.");
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    alert("Por favor, ingrese un correo electrónico válido.");
+                    return;
+                }
+
+                if (!isValidPhoneNumber(phone)) {
+                    alert("Por favor, ingrese un número de teléfono válido (solo números).");
+                    return;
+                }
+
+                if (
+                    containsInappropriateWords(name) ||
+                    containsInappropriateWords(lastName) ||
+                    containsInappropriateWords(username) ||
+                    containsInappropriateWords(password)
+                ) {
+                    alert("Se detectaron palabras inapropiadas. Por favor, ingrese datos válidos.");
+                    return;
+                }
+
+                alert("Registro completado exitosamente.");
+                window.location.href = "main_menu.html";  // Redirige a la pantalla de inicio de sesión.
+            });
+        });
+    </script>
+</body>
+</html>
